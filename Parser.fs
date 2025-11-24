@@ -52,15 +52,21 @@ let private writePage (sourcePage: FileInfo) (rootDir: DirectoryInfo) (dest: Dir
     let destFilePath = sourcePage.FullName.Replace(rootDir.FullName, dest.FullName)
     let destFile = new FileInfo(destFilePath)
 
-    Directory.CreateDirectory destFile.DirectoryName |> ignore
-
     pageDoc.Save destFile.FullName
 
 let rec buildSite (dest: string) (sitePath: Pages.SitePath) =
   let destDir = new DirectoryInfo(dest)
+  destDir.Create()
+
   for page in sitePath.Pages do
     buildPage page sitePath.Template
     |> writePage page sitePath.RootPath destDir
+
+  for file in sitePath.OtherFiles do
+    let destFilePath = file.FullName.Replace(sitePath.RootPath.FullName, destDir.FullName)
+    let destFile = new FileInfo(destFilePath)
+    Directory.CreateDirectory destFile.DirectoryName |> ignore
+    File.Copy(file.FullName, destFile.FullName, true)
 
   for subPath in sitePath.SubPaths do
     buildSite dest subPath
