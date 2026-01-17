@@ -3,6 +3,9 @@
 let src = "./src"
 let dest = "./build"
 
+// let src = "../../../src"
+// let dest = "../../../build"
+
 let args =
     List.ofArray(System.Environment.GetCommandLineArgs())
     |> List.skip 1

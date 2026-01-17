@@ -6,7 +6,7 @@
     <RootNamespace>site_gen</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup><Compile Include="Markdown.fs" />
     <Compile Include="Pages.fs" />
     <Compile Include="Parser.fs" />
     <Compile Include="Program.fs" />
@@ -15,6 +15,8 @@
   <ItemGroup>
     <PackageReference Include="Fizzler.Systems.HtmlAgilityPack" Version="1.2.1" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
+    <PackageReference Include="YamlDotNet" Version="16.1.0" />
   </ItemGroup>
 
 </Project>
